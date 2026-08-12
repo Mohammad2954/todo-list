@@ -1,3 +1,10 @@
+body{
+  background-image: url(../img/blurry-gradient-haikei.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
 .active--color::before{
 content: "";
   content: "";
