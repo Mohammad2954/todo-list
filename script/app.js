@@ -6,10 +6,20 @@ const creatTodoElem=document.querySelector("#creat-todo")
 const valueTodoElem=document.querySelector("#value-todo")
 const importedTodoElem=document.querySelector("#imported-todo")
 const contentTodo=document.querySelector("#content-todo")
+const addCategoryIcon=document.querySelector("#add-category__icon")
+const categoryInfo=document.querySelector("#category-info")
+const cetegoryClose=document.querySelector("#cetegory-close")
+const closeModalCategory=document.querySelector("#close-modal__category")
+const valueCategory=document.querySelector("#value-category")
+const creatCategory=document.querySelector("#creat-category")
+const listCategory=document.querySelector("#list-category")
 
 let list=[]
 const showtodo=()=>{
     removeHiden(addTodo)
+}
+const showModal=()=>{
+    removeHiden(categoryInfo)
 }
 const creatTodo=(event)=>{
     const newTodo={
@@ -23,6 +33,23 @@ const creatTodo=(event)=>{
     addHiden(addTodo)
     valueTodoElem.value=''
     importedTodoElem.checked=false
+}
+const cretcat=()=>{
+    const newcategory=valueCategory.value
+    list.push(newcategory)
+    console.log(list);
+    
+    showcategory()
+    closeModal1()
+}
+const showcategory=()=>{
+    listCategory.innerHTML=""
+    list.forEach(elem=>{
+        listCategory.insertAdjacentHTML("beforeend",`
+            <li class="font-serif text-black text-lg border border-amber-600 rounded-xl px-2 mt-1 cursor-pointer hover:bg-orange-300 transition duration-300 ease-in w-full truncate">${elem}</li>
+            `)
+
+    })
 }
 const sortTodos=(todos)=>{
     const sortedTodos = [...todos].sort((a, b) => {
@@ -38,7 +65,7 @@ const insertTodo=(arr)=>{
                 <div class="mt-2 flex items-center justify-center flex-col gap-6 w-full sm:flex-row sm:justify-between px-4 py-2 border border-amber-600 rounded-lg">
                     <div class="flex items-center gap-2">
                         ${element.isimported?`<i class="fas fa-solid fa-star text-red-700"></i>`:''}
-                        <p>${element.value}</p>
+                        <p clss="truncate w-full">${element.value}</p>
                     </div>
                     <div class="flex items-center gap-2">
                         <div class="text-orange-800">${getHoursForShow()}</div>
@@ -64,6 +91,10 @@ const closemodal=()=>{
     valueTodoElem.value=''
     importedTodoElem.checked=false
     addHiden(addTodo)
+}
+const closeModal1=()=>{
+    valueCategory.value=''
+    addHiden(categoryInfo)
 }
 const addHiden=(elem)=>{
 
@@ -117,3 +148,7 @@ addTodoIcon.addEventListener("click",showtodo)
 closeElem.addEventListener("click",closemodal)
 closetodoElem.addEventListener("click",closemodal)
 creatTodoElem.addEventListener("click",creatTodo)
+addCategoryIcon.addEventListener("click",showModal)
+cetegoryClose.addEventListener("click",closeModal1)
+closeModalCategory.addEventListener("click",closeModal1)
+creatCategory.addEventListener("click",cretcat)
