@@ -24,3 +24,7 @@ content: "";
   display: none;
 
 }
+.linethrough{
+  text-decoration: line-through #B71C1C;
+  text-decoration-thickness: 3px;
+}
