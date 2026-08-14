@@ -14,7 +14,10 @@ const valueCategory=document.querySelector("#value-category")
 const creatCategory=document.querySelector("#creat-category")
 const listCategory=document.querySelector("#list-category")
 
-let list=[]
+
+let activeCategory=()=>{return document.querySelector(".active").innerHTML}
+
+let list={"پیش فرض":[]}
 const showtodo=()=>{
     removeHiden(addTodo)
 }
@@ -28,33 +31,45 @@ const creatTodo=(event)=>{
         isimported:importedTodoElem.checked,
         iscomplet:false
     }
-    list.push(newTodo)
-    sortTodos(list)
+
+    list[activeCategory()].push(newTodo)
+    sortTodos(list[activeCategory()])
     addHiden(addTodo)
     valueTodoElem.value=''
     importedTodoElem.checked=false
+    setlocal()
 }
 const cretcat=()=>{
     const newcategory=valueCategory.value
-    list.push(newcategory)
-    console.log(list);
+    list[newcategory]=[]
+    
     
     showcategory()
     closeModal1()
+    setlocal()
 }
 const showcategory=()=>{
     listCategory.innerHTML=""
-    list.forEach(elem=>{
+    Object.keys(list).forEach((elem,index)=>{
         listCategory.insertAdjacentHTML("beforeend",`
-            <li class="font-serif text-black text-lg border border-amber-600 rounded-xl px-2 mt-1 cursor-pointer hover:bg-orange-300 transition duration-300 ease-in w-full truncate">${elem}</li>
+            <li class="font-serif text-black text-lg border border-amber-600 rounded-xl px-2 mt-1 cursor-pointer hover:bg-orange-300 transition duration-300 ease-in w-full truncate ${index===0?"active":''} "onclick='activrListItem(event)'>${elem}</li>
             `)
 
     })
 }
+const activrListItem=(event)=>{
+
+    document.querySelector(".active").classList.remove("active") 
+    event.target.classList.add("active")
+    sortTodos(list[event.target.innerHTML])
+
+}
 const sortTodos=(todos)=>{
+
     const sortedTodos = [...todos].sort((a, b) => {
     return Number(b.isimported) - Number(a.isimported);
     });
+    
     insertTodo(sortedTodos)
 }
 const insertTodo=(arr)=>{
@@ -65,7 +80,7 @@ const insertTodo=(arr)=>{
                 <div class="mt-2 flex items-center justify-center flex-col gap-6 w-full sm:flex-row sm:justify-between px-4 py-2 border border-amber-600 rounded-lg">
                     <div class="flex items-center gap-2">
                         ${element.isimported?`<i class="fas fa-solid fa-star text-red-700"></i>`:''}
-                        <p clss="truncate w-full">${element.value}</p>
+                        <p class="truncate w-full ${element.iscomplet?"linethrough":""}">${element.value}</p>
                     </div>
                     <div class="flex items-center gap-2">
                         <div class="text-orange-800">${getHoursForShow()}</div>
@@ -119,30 +134,40 @@ const handeldofunc=(elemId)=>{
     const pElem=event.target.parentElement.parentElement.firstElementChild.lastElementChild
     pElem.classList.toggle("linethrough")
     const indexArr=findIndexForCange(elemId)
-    console.log(elemId);
     
     if(pElem.classList.contains("linethrough")){
-        list[indexArr].iscomplet=true
+        list[activeCategory()][indexArr].iscomplet=true
         event.target.innerHTML='انجام شده'
     }else{
-        list[indexArr].iscomplet=false
+        list[activeCategory()][indexArr].iscomplet=false
         event.target.innerHTML='انجام نشده'
     }
+    setlocal()
     
 }
 const handeldeletfunc=(elemId)=>{
     const trashElem=event.target.parentElement.parentElement.parentElement
-
     const indexArr=findIndexForCange(elemId)
-    list.splice(indexArr,1)
-    sortTodos(list)
+    list[activeCategory()].splice(indexArr,1)
+    sortTodos(list[activeCategory()])
+    setlocal()
 }
-const findIndexForCange=(elemId)=>{return list.findIndex(elem=>elem.id===elemId)}
+const setlocal=()=>{
+    localStorage.setItem("list",JSON.stringify(list))
+}
+const getlocal=()=>{
+    return JSON.parse(localStorage.getItem("list"))
+} 
+const findIndexForCange=(elemId)=>{
+    return list[activeCategory()].findIndex(elem=>elem.id===elemId)}
 window.addEventListener("load",()=>{
-    let x=new Date()
-    console.log(x.getHours(),x.getMinutes(),x.getSeconds());
-    
-    
+    let data=getlocal()
+    if(data){
+
+        list=data
+    }
+    showcategory()
+    sortTodos(list[document.querySelector(".active").innerHTML])
 })
 addTodoIcon.addEventListener("click",showtodo)
 closeElem.addEventListener("click",closemodal)

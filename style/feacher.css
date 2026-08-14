@@ -28,3 +28,6 @@ content: "";
   text-decoration: line-through #B71C1C;
   text-decoration-thickness: 3px;
 }
+.active{
+  background-color: oklch(83.7% 0.128 66.29);
+}
