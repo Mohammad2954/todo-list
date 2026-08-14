@@ -31,7 +31,7 @@
   
     <!-- rigth bar -->
      <section class=" rigthbar fixed right-0 w-40 top-0 h-full  border-l-2 " >
-        <i class="fas fa-angle-left absolute top-1/2 left-1  text-amber-950 text-xl"></i>
+       
         <div class="flex items-center justify-between px-4 mt-5 text-amber-950">
         <span class="text-lg font-serif">دسته بندی</span>    
         <div id="add-category__icon"><i class="fas fa-add cursor-pointer text-green-600"></i></div>
@@ -99,11 +99,8 @@
     <!-- add todo -->
 
     <!-- tost -->
-     <div class="hidden fixed left-4 top-4 w-50 h-16 bg-orange-200 rounded-lg flex items-center justify-center tost">
-        <div class=" flex items-center gap-3">
-            <i class="fas fa-solid fa-check text-orange-950 border p-1 rounded-full"></i>
-            <span class="text-orange-950"> تودو اضافه شد</span>
-        </div>
+     <div id="tost-box" class="px-2 fixed left-4 top-4  h-16 flex items-center justify-center bg-orange-200 rounded-lg shadow-lg tost opacity-0 -translate-y-4 pointer-events-none transition-all duration-300 ease-out z-50">
+    <!-- محتوا با JS اضافه می‌شود -->
      </div>
     <!-- tost -->
     <script src="./script/app.js"></script>
