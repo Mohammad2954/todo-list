@@ -5,7 +5,7 @@ A simple and practical **Todo List** web application with **category-based task 
 In this project, every todo must belong to a specific category. A default category is included by default so users can start adding tasks immediately. All data is saved in the browser using **LocalStorage**.
 
 ---
-![Main View](./scrinshot/image.png)
+![Main View](./img/image.png)
 ---
 ## ✨ Features
 
