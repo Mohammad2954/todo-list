@@ -1,2 +1,3 @@
-./x.text
 node_modules/
+npm
+x.text

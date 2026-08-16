@@ -123,7 +123,7 @@ const handeldeletCategory=(event)=>{
     let befordelCount=Object.keys(list).length
     delete list[innerData]
     let afterdelCount=Object.keys(list).length
-    if(befordelCount=afterdelCount){
+    if(befordelCount===afterdelCount){
         tostBoxMessage("حذف با شکست مواجه شد",false)
     }else{
         tostBoxMessage("دسته بندی با موفقیت حذف شد",true)
